@@ -33,3 +33,30 @@ _, threshold = cv.threshold(gray_roi_blur, 3, 255,
 contours, _ = cv.findContours(threshold, cv.RETR_TREE,
                                   cv.CHAIN_APPROX_SIMPLE)
 ```
+  * contourslari yazdirildigi zaman bize maskelediğimiz yerlerin koordinatlerını verir.
+  * eğer bunları çizdirmek içinde `cv.drawContours(frame, i, -1, (0, 0, 255), 4)` fonk. kullanabiliriz.
+  - ama burada hala bi problem mevcuttur, resmimizde hala görültüler mevcuttur ve bunları gideremedik
+  - ![demo](https://github.com/HasanBeratSoke/Opencv_gozBebegiTakip/blob/main/readmeData/ss.png)
+  
+   burada contour ları sıralayıp sadece en büyüğünü yazdırarak propbleme gecici cözüm üretebiliriz.
+   ```Python
+   contours = sorted(contours, key=lambda x: cv.contourArea(x),
+                      reverse=True)
+   ``` 
+   buradakı contoru belirledikden sonra isterseniz yuvarlak içine istersenizde kare içine alabilirsiniz. 
+   ```Python
+       for i in contours:
+        # cv.drawContours(frame, i, -1, (0, 0, 255), 4)
+        (x, y, w, h) = cv.boundingRect(i)
+        cv.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        cv.line(frame, (x + int(w / 2), 0), (x + int(w / 2), rows), (0, 255, 0), 2)
+        cv.line(frame, (0, y + int(h / 2)), (cols, y + int(h / 2)), (0, 255, 0), 2)
+        break  # breakinamaci sadece birinci counteri cizmek ve donguden cikmak icin
+   ```
+---
+#### yararlandigim rehberler
++ https://www.youtube.com/watch?v=z7fiml2iZzo
++ https://learnopencv.com/opencv-threshold-python-cpp/
++ https://docs.opencv.org/4.x/df/d0d/tutorial_find_contours.html
+  
+   
