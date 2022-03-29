@@ -34,8 +34,8 @@ while True:
         cv.line(frame, (0, y + int(h / 2)), (cols, y + int(h / 2)), (0, 255, 0), 2)
         break  # breakinamaci sadece birinci counteri cizmek ve donguden cikmak
 
-    cv.imshow('gray_blur', gray_roi_blur)
-    cv.imshow('thr', threshold)
+    #cv.imshow('gray_blur', gray_roi_blur)
+    #cv.imshow('thr', threshold)
     cv.imshow('frame', frame)
 
     key = cv.waitKey(30)
